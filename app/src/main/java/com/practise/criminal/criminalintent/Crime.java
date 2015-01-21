@@ -10,7 +10,20 @@ public class Crime {
     private String mTitle;
 
     public Crime()
+
     {
         mUid= UUID.randomUUID();
+    }
+
+    public UUID getmUid() {
+        return mUid;
+    }
+
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
     }
 }
