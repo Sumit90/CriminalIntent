@@ -1,5 +1,6 @@
 package com.practise.criminal.criminalintent;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -8,15 +9,34 @@ import java.util.UUID;
 public class Crime {
     private UUID mUid;
     private String mTitle;
+    private Date mDate;
+    private boolean mIsResolved;
 
     public Crime()
 
     {
         mUid= UUID.randomUUID();
+        mDate=new Date();
     }
 
     public UUID getmUid() {
         return mUid;
+    }
+
+    public Date getmDate() {
+        return mDate;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
+    public boolean ismIsResolved() {
+        return mIsResolved;
+    }
+
+    public void setmIsResolved(boolean mIsResolved) {
+        this.mIsResolved = mIsResolved;
     }
 
     public String getmTitle() {
@@ -26,4 +46,6 @@ public class Crime {
     public void setmTitle(String mTitle) {
         this.mTitle = mTitle;
     }
+
+
 }
