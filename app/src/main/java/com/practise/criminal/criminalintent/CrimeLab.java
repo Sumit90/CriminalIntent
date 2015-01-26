@@ -1,6 +1,7 @@
 package com.practise.criminal.criminalintent;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -23,7 +24,7 @@ public class CrimeLab {
         {
             Crime c=new Crime();
             c.setmTitle(i+" Serious Crime");
-            c.setmIsResolved(1%2==0);
+            c.setmIsResolved(i % 2 == 0);
             mCrimes.add(c);
         }
     }
@@ -47,7 +48,7 @@ public class CrimeLab {
     {
         for(Crime c:mCrimes)
         {
-            if(c.getmUid()==uiid)
+            if(c.getmUid().equals(uiid))
             {
                 return c;
 

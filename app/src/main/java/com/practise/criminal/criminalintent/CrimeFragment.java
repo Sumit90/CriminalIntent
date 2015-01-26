@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.UUID;
 
 /**
  * Created by e00959 on 1/23/2015.
@@ -29,10 +30,13 @@ public class CrimeFragment extends Fragment {
     private CheckBox mIsSolved;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+       // mCrime = new Crime();
+        UUID mUUID=(UUID)getActivity().getIntent().getSerializableExtra(CrimeListFragment.EXTRA_CRIME_ID);
+        mCrime=CrimeLab.getInstance(getActivity()).getCrime(mUUID);
     }
 
     @Override
@@ -40,8 +44,15 @@ public class CrimeFragment extends Fragment {
 
         View v=inflater.inflate(R.layout.fragment_crime,container,false);
         mCrimeTitle=(EditText)v.findViewById(R.id.crime_title);
+        mCrimeTitle.setText(mCrime.getmTitle());
+
         mDateButton=(Button)v.findViewById(R.id.crime_date);
+        DateFormat l_dateFormat =   new SimpleDateFormat("E,MM dd,yyyy hh:mm:ss");
+        mDateButton.setText(l_dateFormat.format(mCrime.getmDate()));
+        mDateButton.setEnabled(false);
+
         mIsSolved=(CheckBox)v.findViewById(R.id.crime_solved);
+        mIsSolved.setChecked(mCrime.ismIsResolved());
 
         mCrimeTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -62,9 +73,8 @@ public class CrimeFragment extends Fragment {
         });
 
 
-        DateFormat l_dateFormat =   new SimpleDateFormat("E,MM dd,yyyy hh:mm:ss");
-        mDateButton.setText(l_dateFormat.format(mCrime.getmDate()));
-        mDateButton.setEnabled(false);
+
+
 
         mIsSolved.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
