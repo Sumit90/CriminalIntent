@@ -9,13 +9,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.UUID;
+
 
 public class CrimeActivity extends SinglefragmentActivity {
 
 
     @Override
     protected Fragment createFragment() {
-        return new CrimeFragment();
+
+        UUID mUUID=(UUID)getIntent().getSerializableExtra(CrimeListFragment.EXTRA_CRIME_ID);
+        return CrimeFragment.getFragmentInstance(mUUID);
     }
 
     @Override

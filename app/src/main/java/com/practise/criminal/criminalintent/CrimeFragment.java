@@ -35,7 +35,10 @@ public class CrimeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // mCrime = new Crime();
-        UUID mUUID=(UUID)getActivity().getIntent().getSerializableExtra(CrimeListFragment.EXTRA_CRIME_ID);
+
+        UUID mUUID = (UUID)getArguments().get(CrimeListFragment.EXTRA_CRIME_ID);
+
+        if(mUUID!=null)
         mCrime=CrimeLab.getInstance(getActivity()).getCrime(mUUID);
     }
 
@@ -85,5 +88,16 @@ public class CrimeFragment extends Fragment {
         });
 
          return v;
+    }
+
+
+
+    public static CrimeFragment getFragmentInstance(UUID uuid)
+    {
+        Bundle args=new Bundle();
+        args.putSerializable(CrimeListFragment.EXTRA_CRIME_ID,uuid);
+        CrimeFragment crimeFrag =   new CrimeFragment();
+        crimeFrag.setArguments(args);
+        return  crimeFrag;
     }
 }

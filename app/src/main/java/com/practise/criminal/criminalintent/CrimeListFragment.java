@@ -35,10 +35,17 @@ public class CrimeListFragment extends ListFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((CrimeListAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
 
         Crime l_c   =   ((CrimeListAdapter)getListAdapter()).getItem(position);
-        Intent l_callCrime = new Intent(getActivity(),CrimeActivity.class);
+        //Intent l_callCrime = new Intent(getActivity(),CrimeActivity.class);
+        Intent l_callCrime = new Intent(getActivity(),CrimePagerActivity.class);
         l_callCrime.putExtra(EXTRA_CRIME_ID,l_c.getmUid());
         startActivity(l_callCrime);
     }
