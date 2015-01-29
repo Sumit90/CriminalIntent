@@ -25,6 +25,7 @@ public class CrimePagerActivity extends FragmentActivity{
 
         mViewPager=new ViewPager(this);
         mViewPager.setId(R.id.view_pager);
+        mViewPager.setOffscreenPageLimit(3);
         setContentView(mViewPager);
 
         mCrimeList=CrimeLab.getInstance(this).getCrimeList();

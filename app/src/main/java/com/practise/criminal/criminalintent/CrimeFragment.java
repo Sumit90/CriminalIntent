@@ -28,7 +28,7 @@ public class CrimeFragment extends Fragment {
     private EditText mCrimeTitle;
     private Button mDateButton;
     private CheckBox mIsSolved;
-
+    public static final String DATE_PICKER="date";
 
 
     @Override
