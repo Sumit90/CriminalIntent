@@ -8,4 +8,8 @@
     <string name="crime_solved_label">Solved?</string>
     <string name="crimes_title">Crimes</string>
     <string name="date_picker_title">Choose Crime Date :</string>
+    <string name="time_picker_title">Choose Crime Time :</string>
+    <string name="dialog_picker_title">What you wanna change? :</string>
+    <string name="change_time">Change Time</string>
+    <string name="change_date">Change Date</string>
 </resources>
