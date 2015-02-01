@@ -1,11 +1,15 @@
 package com.practise.criminal.criminalintent;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -19,10 +23,11 @@ public class ChooseDialogFragment extends DialogFragment {
     private Button mDateButton;
     private Button mTimeButton;
     private Date mCrimeDate;
-    private static final String EXTRA_DATE="com.practise.criminal.criminalintent.choosedate";
+    public static final String EXTRA_DATE="com.practise.criminal.criminalintent.choosedate";
     public static final String DIALOG_PICKER="choose_dialog";
-    private static final int REQUEST_DATE=1;
-    private static final int REQUEST_TIME=2;
+    public static final int REQUEST_DATE=1;
+    public static final int REQUEST_TIME=2;
+    private static final String TAG="ChooseDialogFragment";
 
     @NonNull
     @Override
@@ -62,11 +67,19 @@ public class ChooseDialogFragment extends DialogFragment {
         return new AlertDialog.Builder(getActivity())
                               .setTitle(R.string.dialog_picker_title)
                               .setView(v)
+                              .setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+                                  @Override
+                                  public void onClick(DialogInterface dialog, int which) {
+                                      sendBackResult(Activity.RESULT_OK);
+                                  }
+                              })
                               .create();
 
 
 
     }
+
+
 
     public static ChooseDialogFragment getDialogInstance(Date date)
     {
@@ -78,5 +91,33 @@ public class ChooseDialogFragment extends DialogFragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if(resultCode!= Activity.RESULT_OK)
+            return;
+
+        if(requestCode==REQUEST_TIME)
+            mCrimeDate=(Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+
+        if(requestCode==REQUEST_DATE)
+            mCrimeDate=(Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            Log.d(TAG,"REQUEST_DATE");
+
+
+
+    }
+
+    private void sendBackResult(int resultCode)
+    {
+        if(getTargetFragment()==null)
+        {
+            return;
+        }
+
+        Intent l_intent=new Intent();
+        l_intent.putExtra(EXTRA_DATE,mCrimeDate);
+        getTargetFragment().onActivityResult(getTargetRequestCode(),resultCode,l_intent);
+
+    }
 }

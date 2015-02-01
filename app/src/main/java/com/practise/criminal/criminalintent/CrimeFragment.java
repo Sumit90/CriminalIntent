@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +34,8 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mIsSolved;
     public static final String DATE_PICKER="date";
-    private static final int REQUEST_DATE = 0;
+    private static final int REQUEST_CODE = 0;
+    private static final String TAG="com.practise.criminal.criminalintent.CrimeFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,10 +86,10 @@ public class CrimeFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm=getActivity().getSupportFragmentManager();
                // DatePickerFragment datePicker=DatePickerFragment.getDatePickerInstance(mCrime.getmDate());
-                //datePicker.setTargetFragment(CrimeFragment.this,REQUEST_DATE);
+                //datePicker.setTargetFragment(CrimeFragment.this,REQUEST_CODE);
                // datePicker.show(fm,DATE_PICKER);
                 ChooseDialogFragment dialogChooser=ChooseDialogFragment.getDialogInstance(mCrime.getmDate());
-                dialogChooser.setTargetFragment(CrimeFragment.this,REQUEST_DATE);
+                dialogChooser.setTargetFragment(CrimeFragment.this, REQUEST_CODE);
                 dialogChooser.show(fm,DATE_PICKER);
 
 
@@ -111,12 +112,16 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode!= Activity.RESULT_OK) return;
-        if(requestCode==REQUEST_DATE)
+        if(requestCode== REQUEST_CODE)
         {
-            Date date=(Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            Date date=(Date)data.getSerializableExtra(ChooseDialogFragment.EXTRA_DATE);
             mCrime.setmDate(date);
             updateDate();
+
+            Log.d(TAG,"inside REQUEST_CODE");
+
         }
+
     }
 
     public void updateDate()

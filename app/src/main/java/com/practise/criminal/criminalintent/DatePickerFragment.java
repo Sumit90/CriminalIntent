@@ -34,13 +34,25 @@ public class DatePickerFragment extends DialogFragment{
         int year=c.get(Calendar.YEAR);
         final int month=c.get(Calendar.MONTH);
         final int day=c.get(Calendar.DAY_OF_MONTH);
+        final int hour=c.get(Calendar.HOUR_OF_DAY);
+        final int min=c.get(Calendar.MINUTE);
 
         View v=getActivity().getLayoutInflater().inflate(R.layout.date_picker_dialoge,null);
         DatePicker datePick=(DatePicker)v.findViewById(R.id.date_picker);
         datePick.init(year,month,day,new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                mCrimeDate=new GregorianCalendar(year,monthOfYear,dayOfMonth).getTime();
+
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, monthOfYear);
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                cal.set(Calendar.MINUTE, min);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+
+                mCrimeDate=cal.getTime();
                 getArguments().putSerializable(EXTRA_DATE,mCrimeDate);
             }
         });
